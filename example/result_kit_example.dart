@@ -15,10 +15,10 @@ class Post {
   final String body;
 
   factory Post.fromJson(Map<String, dynamic> json) => Post(
-    id: json['id'] as int,
-    title: json['title'] as String,
-    body: json['body'] as String,
-  );
+        id: json['id'] as int,
+        title: json['title'] as String,
+        body: json['body'] as String,
+      );
 
   @override
   String toString() => 'Post(id: $id, title: "$title")';
@@ -136,9 +136,9 @@ class DeletePostUseCase implements AsyncUseCase<void, int> {
 class _StubPostRepository implements PostRepository {
   @override
   Future<Result<List<Post>>> getPosts({int page = 1, int limit = 10}) async => const Result.ok([
-    Post(id: 1, title: 'Getting started', body: 'Welcome to result_kit.'),
-    Post(id: 2, title: 'Typed results', body: 'No more try/catch everywhere.'),
-  ]);
+        Post(id: 1, title: 'Getting started', body: 'Welcome to result_kit.'),
+        Post(id: 2, title: 'Typed results', body: 'No more try/catch everywhere.'),
+      ]);
 
   @override
   Future<Result<Post>> getPost(int id) async {
