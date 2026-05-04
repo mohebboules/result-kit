@@ -24,13 +24,9 @@ extension PaginatedDataStateExtensions<T> on PaginatedDataState<T> {
   bool get isEmpty => this is PaginatedEmpty<T>;
   bool get isInitial => this is PaginatedInitial<T>;
 
-  String? get errorMessage =>
-      isError ? (this as PaginatedError<T>).message : null;
+  String? get errorMessage => isError ? (this as PaginatedError<T>).message : null;
   List<T>? get items => isLoaded ? (this as PaginatedLoaded<T>).items : null;
-  bool get hasMore =>
-      isLoaded && (this as PaginatedLoaded<T>).metadata.hasNextPage;
-  bool get isLoadingMore =>
-      isLoaded && (this as PaginatedLoaded<T>).isLoadingMore;
-  PaginationMetadata? get metadata =>
-      isLoaded ? (this as PaginatedLoaded<T>).metadata : null;
+  bool get hasMore => isLoaded && (this as PaginatedLoaded<T>).metadata.hasNextPage;
+  bool get isLoadingMore => isLoaded && (this as PaginatedLoaded<T>).isLoadingMore;
+  PaginationMetadata? get metadata => isLoaded ? (this as PaginatedLoaded<T>).metadata : null;
 }

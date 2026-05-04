@@ -16,7 +16,6 @@ extension ActionStateExtensions<T> on ActionState<T> {
   bool get isSuccess => this is ActionSuccess<T>;
   bool get isFailure => this is ActionFailure<T>;
 
-  String? get errorMessage =>
-      isFailure ? (this as ActionFailure<T>).message : null;
+  String? get errorMessage => isFailure ? (this as ActionFailure<T>).message : null;
   T? get data => isSuccess ? (this as ActionSuccess<T>).data : null;
 }
