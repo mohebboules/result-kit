@@ -18,4 +18,7 @@ sealed class Failure with _$Failure {
 
   /// An unexpected exception that does not fit any other category.
   const factory Failure.unknown(String message) = UnknownFailure;
+
+  /// Client-side input validation failed before a network request was made.
+  const factory Failure.validation(String message) = ValidationFailure;
 }
