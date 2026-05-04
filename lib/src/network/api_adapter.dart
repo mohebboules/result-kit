@@ -12,8 +12,10 @@ abstract interface class ApiAdapter {
 
 /// Thrown by an [ApiAdapter] to signal a typed [Failure] to [ApiGuard].
 final class ApiAdapterException implements Exception {
+  /// Creates an exception wrapping [failure].
   const ApiAdapterException(this.failure);
 
+  /// The typed failure to be forwarded to [ApiGuard].
   final Failure failure;
 
   @override

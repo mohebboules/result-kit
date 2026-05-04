@@ -13,6 +13,7 @@ import '../api_response.dart';
 /// DioAdapter(() => dio.get('/users'))
 /// ```
 final class DioAdapter implements ApiAdapter {
+  /// Creates an adapter that executes [call] when [execute] is invoked.
   const DioAdapter(this._call);
 
   final Future<Response<dynamic>> Function() _call;

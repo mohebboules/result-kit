@@ -7,7 +7,8 @@ part 'pagination_metadata.freezed.dart';
 /// Construct manually or use [PaginationMetadata.fromJson] for responses
 /// with `page`, `limit`, `totalItems`, and `totalPages` fields.
 @freezed
-sealed class PaginationMetadata with _$PaginationMetadata {
+abstract class PaginationMetadata with _$PaginationMetadata {
+  /// Creates pagination metadata with all fields specified explicitly.
   const factory PaginationMetadata({
     required int currentPage,
     required int itemsPerPage,
