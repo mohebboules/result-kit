@@ -29,7 +29,7 @@ linter:
     implementation_imports: error
     avoid_relative_lib_imports: error
     always_use_package_imports: false
-    public_member_api_docs: false
+    public_member_api_docs: true
     avoid_positional_boolean_parameters: false
     sort_constructors_first: false
     sort_pub_dependencies: false
