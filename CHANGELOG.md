@@ -2,7 +2,7 @@
 
 - Initial release.
 - `Result<T>` sealed type with `Ok` and `Err` variants.
-- `Failure` sealed type: `network`, `auth`, `server`, `unknown`.
+- `Failure` sealed type: `network`, `auth`, `server`, `unknown`, `validation`.
 - `DataState<T>`, `ActionState<T>`, `PaginatedDataState<T>` async state machines.
 - `PaginationMetadata` for paginated list state.
 - `AsyncUseCase`, `AsyncUseCaseNoParams`, `SyncUseCase`, `SyncUseCaseNoParams` interfaces.
