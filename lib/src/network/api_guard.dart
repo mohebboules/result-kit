@@ -17,13 +17,29 @@ abstract final class ApiGuard {
   /// any failure as [Failure].
   ///
   /// - 2xx → `Result.ok(parser(response))`
-  /// - 401 → `Result.err(Failure.auth(...))`
-  /// - other non-2xx → `Result.err(Failure.server(...))`
+  /// - non-2xx + [onNonSuccess] provided → `Result.err(onNonSuccess(response))`
+  /// - 401 → `Result.err(Failure.auth(...))` (default fallback)
+  /// - other non-2xx → `Result.err(Failure.server(...))` (default fallback)
   /// - [ApiAdapterException] → `Result.err(exception.failure)`
   /// - any other exception → `Result.err(Failure.unknown(...))`
+  ///
+  /// Supply [onNonSuccess] to customise how non-2xx responses map to a [Failure]:
+  ///
+  /// ```dart
+  /// ApiGuard.run(
+  ///   adapter: adapter,
+  ///   parser: (res) => ...,
+  ///   onNonSuccess: (res) => switch (res.statusCode) {
+  ///     403 => const Failure.auth('Forbidden'),
+  ///     422 => Failure.server(_parseValidationError(res.data)),
+  ///     _ => Failure.server('Error ${res.statusCode}'),
+  ///   },
+  /// )
+  /// ```
   static Future<Result<T>> run<T>({
     required ApiAdapter adapter,
     required T Function(ApiResponse response) parser,
+    Failure Function(ApiResponse response)? onNonSuccess,
   }) async {
     try {
       final response = await adapter.execute();
@@ -31,6 +47,9 @@ abstract final class ApiGuard {
 
       if (status >= 200 && status < 300) {
         return Result.ok(parser(response));
+      }
+      if (onNonSuccess != null) {
+        return Result.err(onNonSuccess(response));
       }
       if (status == 401) {
         return const Result.err(Failure.auth('Unauthorized'));
