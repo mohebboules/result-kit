@@ -62,6 +62,11 @@ void main() {
       const f = Failure.unknown('something blew up');
       expect((f as UnknownFailure).message, 'something blew up');
     });
+
+    test('validation carries message', () {
+      const f = Failure.validation('email is required');
+      expect((f as ValidationFailure).message, 'email is required');
+    });
   });
 
   group('FailureX.message', () {
@@ -79,6 +84,10 @@ void main() {
 
     test('returns message for unknown failure', () {
       expect(const Failure.unknown('oops').message, 'oops');
+    });
+
+    test('returns message for validation failure', () {
+      expect(const Failure.validation('name too short').message, 'name too short');
     });
   });
 }
