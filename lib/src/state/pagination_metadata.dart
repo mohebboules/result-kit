@@ -1,23 +1,29 @@
-class PaginationMetadata {
-  final int currentPage;
-  final int itemsPerPage;
-  final int totalItems;
-  final int totalPages;
-  final bool hasNextPage;
-  final bool hasPrevPage;
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-  const PaginationMetadata({
-    required this.currentPage,
-    required this.itemsPerPage,
-    required this.totalItems,
-    required this.totalPages,
-    required this.hasNextPage,
-    required this.hasPrevPage,
-  });
+part 'pagination_metadata.freezed.dart';
 
+/// Pagination metadata returned from a paginated API endpoint.
+///
+/// Construct manually or use [PaginationMetadata.fromJson] for responses
+/// with `page`, `limit`, `totalItems`, and `totalPages` fields.
+@freezed
+sealed class PaginationMetadata with _$PaginationMetadata {
+  const factory PaginationMetadata({
+    required int currentPage,
+    required int itemsPerPage,
+    required int totalItems,
+    required int totalPages,
+    required bool hasNextPage,
+    required bool hasPrevPage,
+  }) = _PaginationMetadata;
+
+  /// Parses from a JSON map with the following shape:
+  /// ```json
+  /// { "page": 1, "limit": 20, "totalItems": 100, "totalPages": 5 }
+  /// ```
   factory PaginationMetadata.fromJson(Map<String, dynamic> json) {
-    final int currentPage = json['page'] as int? ?? 1;
-    final int totalPages = json['totalPages'] as int? ?? 1;
+    final currentPage = json['page'] as int? ?? 1;
+    final totalPages = json['totalPages'] as int? ?? 1;
     return PaginationMetadata(
       currentPage: currentPage,
       itemsPerPage: json['limit'] as int? ?? 10,
