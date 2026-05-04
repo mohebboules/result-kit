@@ -7,7 +7,7 @@ Typed results, async state machines, and a network guard layer for clean-archite
 ## Features
 
 - **`Result<T>`** — typed success/failure without exceptions
-- **`Failure`** — four semantic variants: `network`, `auth`, `server`, `unknown`
+- **`Failure`** — five semantic variants: `network`, `auth`, `server`, `unknown`, `validation`
 - **`DataState<T>`** — five-state machine for async data-fetching (initial → loading → success / empty / failure)
 - **`ActionState<T>`** — four-state machine for async mutations (initial → loading → success / failure)
 - **`PaginatedDataState<T>`** — paginated list state with load-more support
@@ -62,8 +62,16 @@ final label = result.fold(
 
 ### Failure
 
-`Failure` is a sealed type with four variants. Use `FailureX.message` to get the message without
+`Failure` is a sealed type with five variants. Use the `.message` getter on any variant without
 pattern-matching.
+
+| Variant | When to use |
+|---|---|
+| `Failure.network` | No connectivity or request timed out |
+| `Failure.auth` | Missing or invalid credentials (HTTP 401) |
+| `Failure.server` | Non-2xx, non-401 server response |
+| `Failure.validation` | Client-side input invalid before the request is made |
+| `Failure.unknown` | Unexpected exception that fits no other category |
 
 ```dart
 void handle(Failure failure) {
@@ -72,6 +80,8 @@ void handle(Failure failure) {
       showOfflineBanner();
     case AuthFailure():
       navigateToLogin();
+    case ValidationFailure():
+      showFieldError(failure.message);
     case ServerFailure():
     case UnknownFailure():
       showErrorSnackbar(failure.message);
