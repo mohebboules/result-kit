@@ -12,11 +12,39 @@ import '../api_response.dart';
 /// ```dart
 /// DioAdapter(() => dio.get('/users'))
 /// ```
+///
+/// Customise error handling via [messageExtractor] and [failureMapper]:
+///
+/// ```dart
+/// DioAdapter(
+///   () => dio.get('/users'),
+///   messageExtractor: (data) => data is Map ? data['errorMessage'] as String? : null,
+///   failureMapper: (e) {
+///     if (e.response?.statusCode == 403) return const Failure.auth('Forbidden');
+///     return Failure.server(e.message ?? 'Server error');
+///   },
+/// )
+/// ```
 final class DioAdapter implements ApiAdapter {
   /// Creates an adapter that executes [call] when [execute] is invoked.
-  const DioAdapter(this._call);
+  ///
+  /// - [messageExtractor]: overrides how the error message is extracted from a
+  ///   non-2xx response body. Falls back to built-in extraction logic when `null`.
+  /// - [failureMapper]: overrides the entire [DioException] → [Failure] mapping.
+  ///   Falls back to built-in mapping when `null`.
+  const DioAdapter(
+    this._call, {
+    this.messageExtractor,
+    this.failureMapper,
+  });
 
   final Future<Response<dynamic>> Function() _call;
+
+  /// Overrides how the error message is extracted from a response body.
+  final String? Function(dynamic data)? messageExtractor;
+
+  /// Overrides the entire [DioException] → [Failure] mapping.
+  final Failure Function(DioException exception)? failureMapper;
 
   @override
   Future<ApiResponse> execute() async {
@@ -24,7 +52,9 @@ final class DioAdapter implements ApiAdapter {
       final res = await _call();
       return ApiResponse(statusCode: res.statusCode ?? 0, data: res.data);
     } on DioException catch (e) {
-      throw ApiAdapterException(_mapDioException(e));
+      throw ApiAdapterException(
+        failureMapper != null ? failureMapper!(e) : _mapDioException(e),
+      );
     }
   }
 
@@ -33,7 +63,8 @@ final class DioAdapter implements ApiAdapter {
       return const Failure.network('Network error, please try again later.');
     }
     final status = e.response?.statusCode;
-    final msg = _extractMessage(e.response?.data);
+    final extractFn = messageExtractor ?? _extractMessage;
+    final msg = extractFn(e.response?.data);
     if (status == 401) {
       return Failure.auth(msg ?? 'Unauthorized');
     }
