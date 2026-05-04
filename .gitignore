@@ -10,8 +10,4 @@ build/
 
 coverage/
 
-*.freezed.dart
-
-*.g.dart
-
 .DS_Store

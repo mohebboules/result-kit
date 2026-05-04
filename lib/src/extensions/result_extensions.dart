@@ -16,6 +16,5 @@ extension ResultX<T> on Result<T> {
   Failure? get failureOrNull => this is Err<T> ? (this as Err<T>).failure : null;
 
   /// Maps this result to [R] by applying [ok] on success or [err] on failure.
-  R fold<R>({required R Function(T) ok, required R Function(Failure) err}) =>
-      when(ok: ok, err: err);
+  R fold<R>({required R Function(T) ok, required R Function(Failure) err}) => when(ok: ok, err: err);
 }
