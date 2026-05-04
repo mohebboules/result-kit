@@ -1,35 +1,21 @@
 import '../result/result.dart';
 
-/**
- * Use case that returns a result
- * @param T the type of the result
- * @param Params the type of the parameters
- */
+/// A use case that performs an async operation with parameters and returns [Result<T>].
 abstract interface class AsyncUseCase<T, Params> {
   Future<Result<T>> call(Params params);
 }
 
-/**
- * Use case that returns a result
- * @param T the type of the result
- */
+/// A use case that performs an async operation without parameters and returns [Result<T>].
 abstract interface class AsyncUseCaseNoParams<T> {
   Future<Result<T>> call();
 }
 
-/**
- * Use case that returns a result
- * @param T the type of the result
- * @param Params the type of the parameters
- */
+/// A use case that performs a synchronous operation with parameters.
 abstract interface class SyncUseCase<T, Params> {
   T call(Params params);
 }
 
-/**
- * Use case that returns a result
- * @param T the type of the result
- */
+/// A use case that performs a synchronous operation without parameters.
 abstract interface class SyncUseCaseNoParams<T> {
   T call();
 }
