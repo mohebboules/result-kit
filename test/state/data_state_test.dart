@@ -14,7 +14,7 @@ void main() {
     test('empty', () => expect(const DataState<int>.empty(), isA<DataEmpty<int>>()));
     test('failure carries failure', () {
       const state = DataState<int>.failure(failure);
-      expect((state as DataError).failure, failure);
+      expect((state as DataFailure).failure, failure);
     });
   });
 

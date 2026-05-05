@@ -24,13 +24,13 @@ class DataState<T> with _$DataState<T> {
   const factory DataState.empty() = DataEmpty<T>;
 
   /// The load failed with a typed [failure].
-  const factory DataState.failure(Failure failure) = DataError<T>;
+  const factory DataState.failure(Failure failure) = DataFailure<T>;
 }
 
 /// Extensions on [DataState] for convenient state inspection without pattern-matching.
 extension DataStateExtensions<T> on DataState<T> {
-  /// Whether this is [DataError].
-  bool get isFailure => this is DataError<T>;
+  /// Whether this is [DataFailure].
+  bool get isFailure => this is DataFailure<T>;
 
   /// Whether this is [DataLoading].
   bool get isLoading => this is DataLoading<T>;
@@ -44,8 +44,8 @@ extension DataStateExtensions<T> on DataState<T> {
   /// Whether this is [DataInitial].
   bool get isInitial => this is DataInitial<T>;
 
-  /// The failure, or `null` if the state is not [DataError].
-  Failure? get failure => isFailure ? (this as DataError<T>).failure : null;
+  /// The failure, or `null` if the state is not [DataFailure].
+  Failure? get failure => isFailure ? (this as DataFailure<T>).failure : null;
 
   /// Convenience message from [failure], or `null` if not an error state.
   String? get errorMessage => failure?.message;
