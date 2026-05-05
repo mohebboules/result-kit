@@ -16,7 +16,8 @@ T _$identity<T>(T value) => value;
 mixin _$DataState<T> {
   @override
   bool operator ==(Object other) {
-    return identical(this, other) || (other.runtimeType == runtimeType && other is DataState<T>);
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is DataState<T>);
   }
 
   @override
@@ -53,7 +54,7 @@ extension DataStatePatterns<T> on DataState<T> {
     TResult Function(DataLoading<T> value)? loading,
     TResult Function(DataSuccess<T> value)? success,
     TResult Function(DataEmpty<T> value)? empty,
-    TResult Function(DataError<T> value)? failure,
+    TResult Function(DataFailure<T> value)? failure,
     required TResult orElse(),
   }) {
     final _that = this;
@@ -66,7 +67,7 @@ extension DataStatePatterns<T> on DataState<T> {
         return success(_that);
       case DataEmpty() when empty != null:
         return empty(_that);
-      case DataError() when failure != null:
+      case DataFailure() when failure != null:
         return failure(_that);
       case _:
         return orElse();
@@ -92,7 +93,7 @@ extension DataStatePatterns<T> on DataState<T> {
     required TResult Function(DataLoading<T> value) loading,
     required TResult Function(DataSuccess<T> value) success,
     required TResult Function(DataEmpty<T> value) empty,
-    required TResult Function(DataError<T> value) failure,
+    required TResult Function(DataFailure<T> value) failure,
   }) {
     final _that = this;
     switch (_that) {
@@ -104,7 +105,7 @@ extension DataStatePatterns<T> on DataState<T> {
         return success(_that);
       case DataEmpty():
         return empty(_that);
-      case DataError():
+      case DataFailure():
         return failure(_that);
       case _:
         throw StateError('Unexpected subclass');
@@ -129,7 +130,7 @@ extension DataStatePatterns<T> on DataState<T> {
     TResult? Function(DataLoading<T> value)? loading,
     TResult? Function(DataSuccess<T> value)? success,
     TResult? Function(DataEmpty<T> value)? empty,
-    TResult? Function(DataError<T> value)? failure,
+    TResult? Function(DataFailure<T> value)? failure,
   }) {
     final _that = this;
     switch (_that) {
@@ -141,7 +142,7 @@ extension DataStatePatterns<T> on DataState<T> {
         return success(_that);
       case DataEmpty() when empty != null:
         return empty(_that);
-      case DataError() when failure != null:
+      case DataFailure() when failure != null:
         return failure(_that);
       case _:
         return null;
@@ -179,7 +180,7 @@ extension DataStatePatterns<T> on DataState<T> {
         return success(_that.item);
       case DataEmpty() when empty != null:
         return empty();
-      case DataError() when failure != null:
+      case DataFailure() when failure != null:
         return failure(_that.failure);
       case _:
         return orElse();
@@ -217,7 +218,7 @@ extension DataStatePatterns<T> on DataState<T> {
         return success(_that.item);
       case DataEmpty():
         return empty();
-      case DataError():
+      case DataFailure():
         return failure(_that.failure);
       case _:
         throw StateError('Unexpected subclass');
@@ -254,7 +255,7 @@ extension DataStatePatterns<T> on DataState<T> {
         return success(_that.item);
       case DataEmpty() when empty != null:
         return empty();
-      case DataError() when failure != null:
+      case DataFailure() when failure != null:
         return failure(_that.failure);
       case _:
         return null;
@@ -269,7 +270,8 @@ class DataInitial<T> implements DataState<T> {
 
   @override
   bool operator ==(Object other) {
-    return identical(this, other) || (other.runtimeType == runtimeType && other is DataInitial<T>);
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is DataInitial<T>);
   }
 
   @override
@@ -288,7 +290,8 @@ class DataLoading<T> implements DataState<T> {
 
   @override
   bool operator ==(Object other) {
-    return identical(this, other) || (other.runtimeType == runtimeType && other is DataLoading<T>);
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is DataLoading<T>);
   }
 
   @override
@@ -323,7 +326,8 @@ class DataSuccess<T> implements DataState<T> {
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, const DeepCollectionEquality().hash(item));
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(item));
 
   @override
   String toString() {
@@ -332,14 +336,18 @@ class DataSuccess<T> implements DataState<T> {
 }
 
 /// @nodoc
-abstract mixin class $DataSuccessCopyWith<T, $Res> implements $DataStateCopyWith<T, $Res> {
-  factory $DataSuccessCopyWith(DataSuccess<T> value, $Res Function(DataSuccess<T>) _then) = _$DataSuccessCopyWithImpl;
+abstract mixin class $DataSuccessCopyWith<T, $Res>
+    implements $DataStateCopyWith<T, $Res> {
+  factory $DataSuccessCopyWith(
+          DataSuccess<T> value, $Res Function(DataSuccess<T>) _then) =
+      _$DataSuccessCopyWithImpl;
   @useResult
   $Res call({T item});
 }
 
 /// @nodoc
-class _$DataSuccessCopyWithImpl<T, $Res> implements $DataSuccessCopyWith<T, $Res> {
+class _$DataSuccessCopyWithImpl<T, $Res>
+    implements $DataSuccessCopyWith<T, $Res> {
   _$DataSuccessCopyWithImpl(this._self, this._then);
 
   final DataSuccess<T> _self;
@@ -367,7 +375,8 @@ class DataEmpty<T> implements DataState<T> {
 
   @override
   bool operator ==(Object other) {
-    return identical(this, other) || (other.runtimeType == runtimeType && other is DataEmpty<T>);
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is DataEmpty<T>);
   }
 
   @override
@@ -381,8 +390,8 @@ class DataEmpty<T> implements DataState<T> {
 
 /// @nodoc
 
-class DataError<T> implements DataState<T> {
-  const DataError(this.failure);
+class DataFailure<T> implements DataState<T> {
+  const DataFailure(this.failure);
 
   final Failure failure;
 
@@ -390,13 +399,14 @@ class DataError<T> implements DataState<T> {
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   @pragma('vm:prefer-inline')
-  $DataErrorCopyWith<T, DataError<T>> get copyWith => _$DataErrorCopyWithImpl<T, DataError<T>>(this, _$identity);
+  $DataFailureCopyWith<T, DataFailure<T>> get copyWith =>
+      _$DataFailureCopyWithImpl<T, DataFailure<T>>(this, _$identity);
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is DataError<T> &&
+            other is DataFailure<T> &&
             (identical(other.failure, failure) || other.failure == failure));
   }
 
@@ -410,8 +420,11 @@ class DataError<T> implements DataState<T> {
 }
 
 /// @nodoc
-abstract mixin class $DataErrorCopyWith<T, $Res> implements $DataStateCopyWith<T, $Res> {
-  factory $DataErrorCopyWith(DataError<T> value, $Res Function(DataError<T>) _then) = _$DataErrorCopyWithImpl;
+abstract mixin class $DataFailureCopyWith<T, $Res>
+    implements $DataStateCopyWith<T, $Res> {
+  factory $DataFailureCopyWith(
+          DataFailure<T> value, $Res Function(DataFailure<T>) _then) =
+      _$DataFailureCopyWithImpl;
   @useResult
   $Res call({Failure failure});
 
@@ -419,11 +432,12 @@ abstract mixin class $DataErrorCopyWith<T, $Res> implements $DataStateCopyWith<T
 }
 
 /// @nodoc
-class _$DataErrorCopyWithImpl<T, $Res> implements $DataErrorCopyWith<T, $Res> {
-  _$DataErrorCopyWithImpl(this._self, this._then);
+class _$DataFailureCopyWithImpl<T, $Res>
+    implements $DataFailureCopyWith<T, $Res> {
+  _$DataFailureCopyWithImpl(this._self, this._then);
 
-  final DataError<T> _self;
-  final $Res Function(DataError<T>) _then;
+  final DataFailure<T> _self;
+  final $Res Function(DataFailure<T>) _then;
 
   /// Create a copy of DataState
   /// with the given fields replaced by the non-null parameter values.
@@ -431,7 +445,7 @@ class _$DataErrorCopyWithImpl<T, $Res> implements $DataErrorCopyWith<T, $Res> {
   $Res call({
     Object? failure = null,
   }) {
-    return _then(DataError<T>(
+    return _then(DataFailure<T>(
       null == failure
           ? _self.failure
           : failure // ignore: cast_nullable_to_non_nullable
