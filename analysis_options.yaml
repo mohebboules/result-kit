@@ -1,30 +1,48 @@
-# This file configures the static analysis results for your project (errors,
-# warnings, and lints).
-#
-# This enables the 'recommended' set of lints from `package:lints`.
-# This set helps identify many issues that may lead to problems when running
-# or consuming Dart code, and enforces writing Dart using a single, idiomatic
-# style and format.
-#
-# If you want a smaller set of lints you can change this to specify
-# 'package:lints/core.yaml'. These are just the most critical lints
-# (the recommended set includes the core lints).
-# The core lints are also what is used by pub.dev for scoring packages.
+include: package:very_good_analysis/analysis_options.yaml
 
-include: package:lints/recommended.yaml
+analyzer:
+  errors:
+    avoid_catches_without_on_clauses: ignore
+    discarded_futures: ignore
+    flutter_style_todos: ignore
+    lines_longer_than_80_chars: ignore
+    no_default_cases: ignore
+    one_member_abstracts: ignore
+    strict_raw_type: ignore
+    unreachable_from_main: ignore
 
-# Uncomment the following section to specify additional rules.
+  exclude:
+    - "**/*.g.dart"
+    - "**/*.freezed.dart"
+    - "**/*.gr.dart"
+    - "**/*.gen.dart"
+    - "lib/l10n/*.dart"
+    - "tool/**"
+    - build/**
+    - ios/**
+    - android/**
+    - web/**
+    - scripts/**
 
-# linter:
-#   rules:
-#     - camel_case_types
+linter:
+  rules:
+    implementation_imports: error
+    avoid_relative_lib_imports: error
+    always_use_package_imports: false
+    public_member_api_docs: true
+    avoid_positional_boolean_parameters: false
+    sort_constructors_first: false
+    sort_pub_dependencies: false
+    use_setters_to_change_properties: false
+    omit_local_variable_types: false
+    prefer_single_quotes: false
+    always_put_required_named_parameters_first: false
+    prefer_const_constructors: true
+    prefer_final_locals: true
+    use_build_context_synchronously: true
+    avoid_print: true
+    document_ignores: false
 
-# analyzer:
-#   exclude:
-#     - path/to/excluded/files/**
-
-# For more information about the core and recommended set of lints, see
-# https://dart.dev/go/core-lints
-
-# For additional information about configuring this file, see
-# https://dart.dev/guides/language/analysis-options
+formatter:
+  trailing_commas: preserve
+  page_width: 120

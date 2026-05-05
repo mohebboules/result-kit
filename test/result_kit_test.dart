@@ -2,15 +2,9 @@ import 'package:result_kit/result_kit.dart';
 import 'package:test/test.dart';
 
 void main() {
-  group('A group of tests', () {
-    final awesome = Awesome();
-
-    setUp(() {
-      // Additional setup goes here.
-    });
-
-    test('First Test', () {
-      expect(awesome.isAwesome, isTrue);
+  group('result_kit', () {
+    test('exports public API', () {
+      expect(Result, isNotNull);
     });
   });
 }
