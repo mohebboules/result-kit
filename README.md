@@ -65,13 +65,13 @@ final label = result.fold(
 `Failure` is a sealed type with five variants. Use the `.message` getter on any variant without
 pattern-matching.
 
-| Variant | When to use |
-|---|---|
-| `Failure.network` | No connectivity or request timed out |
-| `Failure.auth` | Missing or invalid credentials (HTTP 401) |
-| `Failure.server` | Non-2xx, non-401 server response |
+| Variant              | When to use                                          |
+| -------------------- | ---------------------------------------------------- |
+| `Failure.network`    | No connectivity or request timed out                 |
+| `Failure.auth`       | Missing or invalid credentials (HTTP 401)            |
+| `Failure.server`     | Non-2xx, non-401 server response                     |
 | `Failure.validation` | Client-side input invalid before the request is made |
-| `Failure.unknown` | Unexpected exception that fits no other category |
+| `Failure.unknown`    | Unexpected exception that fits no other category     |
 
 ```dart
 void handle(Failure failure) {
@@ -117,7 +117,7 @@ switch (state) {
     return UserList(users: item);
   case DataEmpty():
     return const Text('No users found.');
-  case DataError(:final failure):
+  case DataFailure(:final failure):
     return Text(failure.message);
 }
 ```
