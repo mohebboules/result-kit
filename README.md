@@ -3,6 +3,7 @@
 Typed results, async state machines, and a network guard layer for clean-architecture Dart & Flutter apps.
 
 [![pub package](https://img.shields.io/pub/v/result_kit.svg)](https://pub.dev/packages/result_kit)
+[![pub points](https://img.shields.io/pub/points/result_kit.svg)](https://pub.dev/packages/result_kit/score)
 
 ## Features
 
