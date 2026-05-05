@@ -16,8 +16,7 @@ T _$identity<T>(T value) => value;
 mixin _$DataState<T> {
   @override
   bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is DataState<T>);
+    return identical(this, other) || (other.runtimeType == runtimeType && other is DataState<T>);
   }
 
   @override
@@ -270,8 +269,7 @@ class DataInitial<T> implements DataState<T> {
 
   @override
   bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is DataInitial<T>);
+    return identical(this, other) || (other.runtimeType == runtimeType && other is DataInitial<T>);
   }
 
   @override
@@ -290,8 +288,7 @@ class DataLoading<T> implements DataState<T> {
 
   @override
   bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is DataLoading<T>);
+    return identical(this, other) || (other.runtimeType == runtimeType && other is DataLoading<T>);
   }
 
   @override
@@ -326,8 +323,7 @@ class DataSuccess<T> implements DataState<T> {
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(item));
+  int get hashCode => Object.hash(runtimeType, const DeepCollectionEquality().hash(item));
 
   @override
   String toString() {
@@ -336,18 +332,14 @@ class DataSuccess<T> implements DataState<T> {
 }
 
 /// @nodoc
-abstract mixin class $DataSuccessCopyWith<T, $Res>
-    implements $DataStateCopyWith<T, $Res> {
-  factory $DataSuccessCopyWith(
-          DataSuccess<T> value, $Res Function(DataSuccess<T>) _then) =
-      _$DataSuccessCopyWithImpl;
+abstract mixin class $DataSuccessCopyWith<T, $Res> implements $DataStateCopyWith<T, $Res> {
+  factory $DataSuccessCopyWith(DataSuccess<T> value, $Res Function(DataSuccess<T>) _then) = _$DataSuccessCopyWithImpl;
   @useResult
   $Res call({T item});
 }
 
 /// @nodoc
-class _$DataSuccessCopyWithImpl<T, $Res>
-    implements $DataSuccessCopyWith<T, $Res> {
+class _$DataSuccessCopyWithImpl<T, $Res> implements $DataSuccessCopyWith<T, $Res> {
   _$DataSuccessCopyWithImpl(this._self, this._then);
 
   final DataSuccess<T> _self;
@@ -375,8 +367,7 @@ class DataEmpty<T> implements DataState<T> {
 
   @override
   bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is DataEmpty<T>);
+    return identical(this, other) || (other.runtimeType == runtimeType && other is DataEmpty<T>);
   }
 
   @override
@@ -420,11 +411,8 @@ class DataFailure<T> implements DataState<T> {
 }
 
 /// @nodoc
-abstract mixin class $DataFailureCopyWith<T, $Res>
-    implements $DataStateCopyWith<T, $Res> {
-  factory $DataFailureCopyWith(
-          DataFailure<T> value, $Res Function(DataFailure<T>) _then) =
-      _$DataFailureCopyWithImpl;
+abstract mixin class $DataFailureCopyWith<T, $Res> implements $DataStateCopyWith<T, $Res> {
+  factory $DataFailureCopyWith(DataFailure<T> value, $Res Function(DataFailure<T>) _then) = _$DataFailureCopyWithImpl;
   @useResult
   $Res call({Failure failure});
 
@@ -432,8 +420,7 @@ abstract mixin class $DataFailureCopyWith<T, $Res>
 }
 
 /// @nodoc
-class _$DataFailureCopyWithImpl<T, $Res>
-    implements $DataFailureCopyWith<T, $Res> {
+class _$DataFailureCopyWithImpl<T, $Res> implements $DataFailureCopyWith<T, $Res> {
   _$DataFailureCopyWithImpl(this._self, this._then);
 
   final DataFailure<T> _self;
