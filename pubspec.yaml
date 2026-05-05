@@ -4,6 +4,7 @@ version: 0.1.0
 repository: https://github.com/mohebboules/result-kit
 homepage: https://github.com/mohebboules/result-kit
 documentation: https://github.com/mohebboules/result-kit#readme
+issue_tracker: https://github.com/mohebboules/result-kit/issues
 
 topics:
   - result
