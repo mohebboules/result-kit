@@ -255,6 +255,9 @@ meta.totalItems    // int
 meta.totalPages    // int
 meta.hasNextPage   // bool
 meta.hasPrevPage   // bool
+meta.skip          // int
+meta.limit         // int
+meta.nextPage      // int
 ```
 
 ---
