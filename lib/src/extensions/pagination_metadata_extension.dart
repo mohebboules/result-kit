@@ -8,6 +8,6 @@ extension PaginationMetadataX on PaginationMetadata {
   /// The number of items to limit the page to (equivalent to [itemsPerPage]).
   int get limit => itemsPerPage;
 
-  /// The number of the next page (equivalent to [currentPage] + 1).
+  /// The next page number. Only meaningful when [hasNextPage] is true.
   int get nextPage => currentPage + 1;
 }
