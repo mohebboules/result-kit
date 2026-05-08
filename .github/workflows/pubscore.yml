@@ -4,8 +4,6 @@ on:
   schedule:
     - cron: '0 8 * * *'  # Daily at 8am UTC (10am Cairo)
   workflow_dispatch:      # Allows manual trigger
-  push:
-    branches: [dev]       # Temporary: remove before merging to main
 
 jobs:
   check-score:
