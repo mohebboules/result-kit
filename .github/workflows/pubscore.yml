@@ -1,0 +1,21 @@
+name: Pub Score Check
+
+on:
+  schedule:
+    - cron: '0 8 * * *'  # Daily at 8am UTC (10am Cairo)
+  workflow_dispatch:      # Allows manual trigger
+
+jobs:
+  check-score:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Fetch pub.dev score
+        run: |
+          SCORE=$(curl -s https://pub.dev/api/packages/result_kit/score | jq '.grantedPoints')
+          MAX=$(curl -s https://pub.dev/api/packages/result_kit/score | jq '.maxPoints')
+          echo "Score: $SCORE / $MAX"
+          if [ "$SCORE" -lt 160 ]; then
+            echo "❌ Score dropped to $SCORE/160!"
+            exit 1
+          fi
+          echo "✅ Score is perfect: $SCORE/$MAX"
