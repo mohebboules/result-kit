@@ -2,6 +2,7 @@
 library;
 
 export 'src/extensions/failure_extensions.dart';
+export 'src/extensions/pagination_metadata_extension.dart';
 export 'src/extensions/result_extensions.dart';
 export 'src/network/api_adapter.dart';
 export 'src/network/api_guard.dart';

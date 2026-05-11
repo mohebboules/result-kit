@@ -1,6 +1,6 @@
 name: result_kit
 description: Typed results and async state models for clean Dart and Flutter applications.
-version: 0.1.0
+version: 0.2.0
 repository: https://github.com/mohebboules/result-kit
 homepage: https://github.com/mohebboules/result-kit
 documentation: https://github.com/mohebboules/result-kit#readme
